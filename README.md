@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Personal Auth & File Storage Dashboard (Frontend)
 
-## Getting Started
+This project is the **frontend client** for my personal authentication + file storage server.  
+It requires a running backend (auth + file API) and is **not a standalone service**.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- Cookie-based login & authentication  
+- Protected routes using a server-side auth check  
+- Usage dashboard (username, file count, storage usage)  
+- File upload (drag & drop, queue, progress, error states)  
+- File list with infinite loading + thumbnail preview  
+- Image/video preview, download, delete  
+- Responsive navigation (mobile + desktop)  
+
+## Tech Stack
+
+- Next.js 16 (App Router)  
+- shadcn/ui  
+- TanStack Query  
+- Zustand
+
+## Requirements
+
+A backend server providing:
+
+```plain
+POST /auth/login
+GET /auth/me
+POST /auth/logout
+GET /files
+DELETE /files/:id
+POST /upload
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Project Structure
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```plain
+app/
+  page.tsx              # Login or connection error
+  layout.tsx            # Root layout
+  providers.tsx         # React Query provider
+  (protected)/          # Auth-protected section
+    layout.tsx          # Auth check + navigation
+    dashboard/page.tsx  # Usage dashboard
+    files/page.tsx      # File list
+    files/[id]/page.tsx # File detail
+    upload/page.tsx     # File upload
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+components/
+  client/
+    LoginCard
+    AppNavigation
+    DeleteFileButton
+    Upload (UploadBox / UploadQueueList)
+  ui/                   # shadcn/ui components
 
-## Learn More
+lib/
+  api.ts                # API wrapper
+  server/auth.ts        # Server-side auth check
+  client/uploadStore.ts # Upload queue state
+  utils.ts              
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Roadmap
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Global error & 404 pages
+- Upload retry & cancel
+- Concurrent upload limits
+- Toast notifications
