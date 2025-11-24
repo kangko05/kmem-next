@@ -1,7 +1,7 @@
 # Personal Auth & File Storage Dashboard (Frontend)
 
-This project is the **frontend client** for my personal authentication + file storage server.  
-It requires a running backend (auth + file API) and is **not a standalone service**.
+This project is the frontend client authentication + file storage server.  
+It requires a running backend (auth + file API) and is not a standalone service.
 
 ## Features
 

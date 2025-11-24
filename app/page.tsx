@@ -11,8 +11,12 @@ export default async function Home() {
     }
 
     return (
-      <div className="w-full min-h-dvh flex items-center justify-center">
+      <div className="w-full min-h-dvh flex flex-col items-center justify-center">
         <LoginCard />
+        <p className="text-xs text-center mt-4 text-rose-300">
+          This is currently a demo version for testing. Data will be reset
+          regularly.
+        </p>
       </div>
     );
   } catch (err) {
